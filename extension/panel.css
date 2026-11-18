@@ -12,6 +12,7 @@
 #ea-panel .ea-q label { display: block; font-weight: 600; margin-bottom: 3px; }
 #ea-panel .ea-q input, #ea-panel .ea-q select, #ea-panel .ea-q textarea { width: 100%; padding: 4px 6px; border: 1px solid #bbb; border-radius: 4px; font-size: 13px; }
 #ea-panel .ea-small { font-size: 11px; color: #666; }
-#ea-panel .ea-min { width: auto; max-height: none; padding: 6px 10px; }
-#ea-panel .ea-min > *:not(h4) { display: none; }
+#ea-panel.ea-min { width: auto; max-height: none; padding: 6px 10px; }
+#ea-panel.ea-min > *:not(h4) { display: none; }
+#ea-panel.ea-min h4 { margin: 0; }
 .ea-badge { display: inline-block; background: #e7f3e7; color: #1a7f37; border: 1px solid #1a7f37; border-radius: 10px; font: 600 11px system-ui; padding: 1px 7px; margin: 2px 6px 2px 0; }

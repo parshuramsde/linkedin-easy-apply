@@ -42,6 +42,27 @@
   };
   const $ = id => panel.querySelector('#' + id);
   $('ea-min').onclick = () => panel.classList.toggle('ea-min');
+  // Drag the panel by its title: LinkedIn's filter drawer puts "Show results" exactly where the panel sits by default.
+  {
+    const title = panel.querySelector('h4 > span'); title.style.cursor = 'move'; title.title = 'Drag to move';
+    const place = pos => { if (!pos) return; panel.style.left = pos.x + 'px'; panel.style.top = pos.y + 'px'; panel.style.right = 'auto'; panel.style.bottom = 'auto'; };
+    try { place(JSON.parse(localStorage.getItem('ea-panel-pos'))); } catch {}
+    title.addEventListener('mousedown', e => {
+      const r = panel.getBoundingClientRect(), dx = e.clientX - r.left, dy = e.clientY - r.top;
+      const move = ev => place({ x: Math.max(0, Math.min(innerWidth - 80, ev.clientX - dx)), y: Math.max(0, Math.min(innerHeight - 40, ev.clientY - dy)) });
+      const up = () => { removeEventListener('mousemove', move); removeEventListener('mouseup', up); const b = panel.getBoundingClientRect(); try { localStorage.setItem('ea-panel-pos', JSON.stringify({ x: b.left, y: b.top })); } catch {} };
+      addEventListener('mousemove', move); addEventListener('mouseup', up); e.preventDefault();
+    });
+    panel.querySelector('h4').addEventListener('dblclick', () => { panel.style.cssText = ''; try { localStorage.removeItem('ea-panel-pos'); } catch {} });  // double-click title: back to bottom-right
+  }
+  // While LinkedIn's "Jobs filters" drawer (or any page-level dialog) is open on the search page, shrink to a pill so its buttons stay reachable.
+  let autoMin = false;
+  const filterDrawerOpen = () => [...document.querySelectorAll('[role="dialog"], dialog[open], aside')].some(n => n !== panel && !n.contains(panel) && /jobs filters|all filters|show results/i.test(n.innerText || '') && n.getBoundingClientRect().width > 200);
+  setInterval(() => {
+    const open = filterDrawerOpen();
+    if (open && !panel.classList.contains('ea-min')) { panel.classList.add('ea-min'); autoMin = true; }
+    else if (!open && autoMin) { panel.classList.remove('ea-min'); autoMin = false; }
+  }, 700);
   const status = (t) => { $('ea-status').textContent = t; };
   const btn = (label, fn, secondary) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = label; if (secondary) b.className = 'ea-secondary'; b.onclick = fn; $('ea-actions').appendChild(b); return b; };
 
