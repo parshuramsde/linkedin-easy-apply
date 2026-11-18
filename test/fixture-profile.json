@@ -27,6 +27,12 @@
   "answers": [
     {
       "match": [
+        "product.based compan(y|ies)"
+      ],
+      "answer": "Technology Product Company"
+    },
+    {
+      "match": [
         "^work from month$"
       ],
       "answer": "December"

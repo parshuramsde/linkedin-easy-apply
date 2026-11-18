@@ -11,6 +11,11 @@
     <div><div><select id="tm" aria-label="Month"><option>Month</option><option>January</option><option>June</option></select></div>
          <div><select id="ty" aria-label="Year"><option>Year</option><option>2026</option><option>2025</option></select></div></div></div>
 </div>
+<fieldset id="pc"><legend>Which product-based companies have you worked for? (Select all that apply)</legend>
+  <div><input type="checkbox" id="p1"><label for="p1">I have not worked for a product-based company</label></div>
+  <div><input type="checkbox" id="p2"><label for="p2">Enterprise Software / SaaS Product Company</label></div>
+  <div><input type="checkbox" id="p3"><label for="p3">Technology Product Company</label></div>
+</fieldset>
 <div><label for="city">City</label><input id="city" type="text" value=""></div>
 <button type="button">Next</button></form></dialog>
 <script>document.getElementById('cur').addEventListener('change', e => { if (e.target.checked) document.getElementById('to').remove(); });</script>

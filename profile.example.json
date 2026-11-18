@@ -27,6 +27,100 @@
   "answers": [
     {
       "match": [
+        "short intro",
+        "introduce yourself",
+        "(past|previous|favou?rite) project.*(interesting|proud|why)",
+        "project you (found|are|were) (interesting|proud)"
+      ],
+      "answer": "FILL_ME"
+    },
+    {
+      "match": [
+        "agentic workflow",
+        "claude code",
+        "\\bcodex\\b",
+        "(ai|coding) (tools|assistants?).*(day to day|daily|workflow)",
+        "how (do )?you use (ai|llm|copilot)"
+      ],
+      "answer": "FILL_ME"
+    },
+    {
+      "match": [
+        "most challenging (problem|bug|project|issue)",
+        "(hardest|toughest|difficult) (problem|bug|challenge)",
+        "how (did )?you approach(ed)?"
+      ],
+      "answer": "FILL_ME"
+    },
+    {
+      "match": [
+        "legally (permitted|allowed|authori[sz]ed|eligible) to work",
+        "permitted to work in",
+        "eligib(le|ility) to work",
+        "right to work"
+      ],
+      "answer": "Yes"
+    },
+    {
+      "match": [
+        "proof of \\w*ligibility",
+        "provide proof of (work|employment)",
+        "i-?9",
+        "documentation.*(eligib|authori)"
+      ],
+      "answer": "Yes"
+    },
+    {
+      "match": [
+        "relatives? (employed|working|who work)",
+        "family members? (employed|working)",
+        "related to (any|an|a) (current )?employee"
+      ],
+      "answer": "No"
+    },
+    {
+      "match": [
+        "\\bgdpr\\b",
+        "read and (agree|accept|understood)",
+        "agree to the (terms|privacy|notice)",
+        "privacy (notice|policy|statement)",
+        "\\bconsent\\b",
+        "acknowledge"
+      ],
+      "answer": "Yes | I agree | Agree | Accept | I acknowledge | I consent"
+    },
+    {
+      "match": [
+        "referred by",
+        "employee referral",
+        "referral"
+      ],
+      "answer": "No"
+    },
+    {
+      "match": [
+        "(desired|expected|preferred) annual (salary|compensation|ctc)",
+        "annual salary expectation",
+        "salary expectation.*(annual|per annum|inr|\u20b9)"
+      ],
+      "answer": "FILL_ME"
+    },
+    {
+      "match": [
+        "product.based compan(y|ies)",
+        "which (product|companies).*worked for"
+      ],
+      "answer": "FILL_ME"
+    },
+    {
+      "match": [
+        "designed .*end.to.end",
+        "end.to.end.*(designed|solution)\\\\?"
+      ],
+      "answer": "Yes"
+    },
+    {
+      "match": [
         "^work from month$"
       ],
       "answer": "FILL_ME"

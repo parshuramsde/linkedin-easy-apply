@@ -89,7 +89,22 @@ window.EAFiller = (() => {
         e.question = textOf(fs.querySelector('legend')).trim() || (wl.length === 1 && !e.options.includes(wl[0]) ? wl[0] : '') || fs.getAttribute('aria-label')
           || (prev && !prev.querySelector('input') ? textOf(prev).trim() : '') || labelFor(root, el);
         e.checked = radios.findIndex(r => r.checked);
-      } else if (type === 'checkbox') { e.question = labelFor(root, el); e.checked = el.checked; }
+      } else if (type === 'checkbox') {
+        const fs = el.closest('fieldset') || grouping(el);
+        const boxes = fs ? [...fs.querySelectorAll('input[type="checkbox"]')].filter(vis) : [el];
+        if (boxes.length >= 2) {                       // "select all that apply" group: one entry, many options
+          if (seen.has(fs)) continue; seen.add(fs);
+          e.type = 'checkboxgroup'; e.boxes = boxes;
+          e.options = boxes.map(b => {
+            const l = b.id && fs.querySelector(`label[for="${CSS.escape(b.id)}"]`); const w = b.closest('[role="checkbox"]');
+            return ((l && textOf(l).trim()) || (w && textOf(w.querySelector('p, span:not(:empty)')).trim()) || (w && w.getAttribute('aria-label')) || b.getAttribute('aria-label') || '').trim();
+          });
+          const prev = fs.previousElementSibling;
+          e.question = textOf(fs.querySelector('legend')).trim() || fs.getAttribute('aria-label')
+            || (prev && !prev.querySelector('input') ? textOf(prev).trim() : '') || [...fs.querySelectorAll('p, span, div')].map(n => textOf(n).trim()).find(t => t && t.length > 15 && !e.options.includes(t) && /\?|select|which|choose/i.test(t)) || '';
+          e.checked = boxes.map((b, i) => b.checked ? i : -1).filter(i => i >= 0);
+        } else { e.question = labelFor(root, el); e.checked = el.checked; }
+      }
       else if (e.tag === 'select') {
         e.question = labelFor(root, el); e.options = [...el.options].map(o => o.text.trim());
         e.value = el.options[el.selectedIndex]?.text.trim() || '';
@@ -124,8 +139,18 @@ window.EAFiller = (() => {
   }
 
   async function apply(e, answer) {
-    const chosen = e.options ? (pickOption(e.options.filter(o => o && !/^select|^choose/i.test(o)), answer) || (e.tag === 'select' ? null : answer)) : answer;
+    // "Yes | I agree | Accept": for option controls try each alternative in order; free-text fields get the first one
+    const alts = e.type === 'checkboxgroup' ? [answer] : String(answer).split(/\s*\|\s*/).filter(Boolean);
+    if (!e.options && alts.length > 1) answer = alts[0];
+    const opts = e.options ? e.options.filter(o => o && !/^select|^choose/i.test(o)) : null;
+    const chosen = e.options ? (alts.map(a => pickOption(opts, a)).find(Boolean) || (e.tag === 'select' ? null : alts[0])) : answer;
     if (chosen === null || chosen === undefined) return false;
+    if (e.type === 'checkboxgroup') {
+      const wanted = String(answer).split(/\s*[|;]\s*/).map(a => pickOption(e.options, a)).filter(Boolean);
+      if (!wanted.length) return false;
+      for (const w of wanted) { const b = e.boxes[e.options.indexOf(w)]; if (b && !b.checked) { const wr = b.closest('[role="checkbox"]'); const l = b.id && document.querySelector(`label[for="${CSS.escape(b.id)}"]`); click(wr || (l && textOf(l).trim() ? l : b)); if (!b.checked) { b.checked = true; b.dispatchEvent(new Event('change', { bubbles: true })); } } }
+      return true;
+    }
     if (e.type === 'radio') {
       const i = e.options.indexOf(chosen); if (i < 0) return false;
       const r = e.radios[i]; const w = r.closest('[role="radio"]'); const l = r.id && document.querySelector(`label[for="${CSS.escape(r.id)}"]`);
@@ -148,7 +173,7 @@ window.EAFiller = (() => {
     const res = { filled: 0, unknown: [] };
     for (const e of scan(root)) {
       if (!e.question) continue;
-      if (!document.contains(e.el) || (e.type !== 'radio' && !vis(e.el))) continue;
+      if (!document.contains(e.el) || (e.type !== 'radio' && e.type !== 'checkboxgroup' && !vis(e.el))) continue;
       if (e.type === 'checkbox') {
         if (/follow/i.test(e.question) && /company|page/i.test(e.question)) { if (ctx.unfollow && e.el.checked) click(e.el); continue; }
         const h = lookup(ctx.bank, ctx.profile, e.question);
@@ -156,7 +181,7 @@ window.EAFiller = (() => {
         continue;
       }
       const rejected = !!(e.error && e.value);           // LinkedIn refused what is in the box
-      const needs = (e.type === 'radio' && e.checked < 0) || (e.tag === 'select' && e.placeholderSelected) || (e.tag !== 'select' && e.type !== 'radio' && (!e.value || rejected));
+      const needs = (e.type === 'radio' && e.checked < 0) || (e.type === 'checkboxgroup' && e.checked.length === 0) || (e.tag === 'select' && e.placeholderSelected) || (e.tag !== 'select' && e.type !== 'radio' && e.type !== 'checkboxgroup' && (!e.value || rejected));
       if (!needs) continue;
       const h = lookup(ctx.bank, ctx.profile, e.question);
       if (h && h.answer === 'SKIP') continue;
