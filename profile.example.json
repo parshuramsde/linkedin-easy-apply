@@ -27,6 +27,32 @@
   "answers": [
     {
       "match": [
+        "proficiency in english",
+        "english (level|proficiency|fluency)",
+        "level of (english|proficiency)",
+        "fluent in english"
+      ],
+      "answer": "Professional | Fluent | Full professional | Advanced | Native"
+    },
+    {
+      "match": [
+        "do you have \\d\\+? ?(\\+ )?years?",
+        "\\d\\+ years? of (software|development|professional|relevant|hands.on)",
+        "(at least|minimum|more than|over) \\d+ years?"
+      ],
+      "answer": "Yes"
+    },
+    {
+      "match": [
+        "do you have (strong |hands.on |prior |any |solid |relevant |practical |working )?(experience|proficien|knowledge|familiarity|exposure|expertise|background)",
+        "hands.on (proficiency|experience) (in|with)",
+        "experience with (git|ci/?cd|docker|kubernetes|aws|cloud|agile|scrum|rest|microservices|sql|linux)",
+        "are you (familiar|comfortable|proficient|experienced) (with|in|using)"
+      ],
+      "answer": "Yes"
+    },
+    {
+      "match": [
         "short intro",
         "introduce yourself",
         "(past|previous|favou?rite) project.*(interesting|proud|why)",
