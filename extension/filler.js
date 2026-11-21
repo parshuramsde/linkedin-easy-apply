@@ -31,7 +31,7 @@ window.EAFiller = (() => {
       const n = parseFloat(a);
       const rm = inc => t => {
         const m = t.match(/(\d+)\s*(?:-|–|to)\s*(\d+)/); if (m) return n >= +m[1] && (inc ? n <= +m[2] : n < +m[2]);
-        const p = t.match(/(\d+)\s*\+/); if (p) return n >= +p[1];
+        const p = t.match(/(\d+)\s*\+/); if (p) return n >= +p[1] && n < +p[1] * 100;   // "8+ LPA" must not swallow 400000 (rupees vs lakhs)
         const s = t.match(/^(\d+)/); return !!s && +s[1] === n;
       };
       i = texts.findIndex(rm(false)); if (i < 0) i = texts.findIndex(rm(true));
