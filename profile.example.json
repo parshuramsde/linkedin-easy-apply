@@ -27,6 +27,26 @@
   "answers": [
     {
       "match": [
+        "(do you have|have you (used|worked)|experience (using|with)).*(ai.powered|ai (coding|assisted)|coding (tools|assistants?)|copilot|cursor|chatgpt|claude)"
+      ],
+      "answer": "Yes"
+    },
+    {
+      "match": [
+        "\\d\\+ ?years?",
+        "(do|have) (you )?have \\d+"
+      ],
+      "answer": "Yes"
+    },
+    {
+      "match": [
+        "(designed|owned|built|architected|maintained).*(systems?|services?|applications?|backends?).*(in )?production",
+        "independently (designed|owned|built)"
+      ],
+      "answer": "Yes"
+    },
+    {
+      "match": [
         "proficiency in english",
         "english (level|proficiency|fluency)",
         "level of (english|proficiency)",
