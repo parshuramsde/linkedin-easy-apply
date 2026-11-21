@@ -27,6 +27,116 @@
   "answers": [
     {
       "match": [
+        "(earliest|possible|preferred|available|expected) (start|joining|join) ?date",
+        "start date",
+        "date of joining",
+        "when can you (start|join)",
+        "available (to start|from)"
+      ],
+      "answer": "@today | Immediately | Immediate"
+    },
+    {
+      "match": [
+        "(in )?how many days.*(join|start)",
+        "days? to join",
+        "join(ing)? (time|period)"
+      ],
+      "answer": "0 | Immediately"
+    },
+    {
+      "match": [
+        "previously (employed|worked) (with|at|by|for)",
+        "ex-?employee",
+        "worked (here|with us) before"
+      ],
+      "answer": "No"
+    },
+    {
+      "match": [
+        "suffering from any disability",
+        "\\bdisabilit(y|ies)\\b",
+        "differently.abled",
+        "\\bpwd\\b"
+      ],
+      "answer": "No | None | Not applicable | Prefer not to say"
+    },
+    {
+      "match": [
+        "\\bundertake\\b",
+        "true and accurate",
+        "\\bdeclare\\b",
+        "\\bcertify\\b",
+        "information provided.*(true|correct)"
+      ],
+      "answer": "Yes | I agree | Agree | I accept"
+    },
+    {
+      "match": [
+        "professional category",
+        "job category",
+        "functional area"
+      ],
+      "answer": "Software | Engineering | Technology | IT | Information Technology | Individual Contributor | Professional"
+    },
+    {
+      "match": [
+        "serving (your )?notice",
+        "already been relieved",
+        "relieved from"
+      ],
+      "answer": "Yes"
+    },
+    {
+      "match": [
+        "graduate[d]? in \\d{4}",
+        "graduat(ed|ion) (year|batch)",
+        "batch of \\d{4}",
+        "passed out in"
+      ],
+      "answer": "Yes"
+    },
+    {
+      "match": [
+        "(actively )?built using ai",
+        "built (with|using) (ai|llm|genai)",
+        "used ai to build"
+      ],
+      "answer": "Yes"
+    },
+    {
+      "match": [
+        "current tech ?stack",
+        "tech(nology)? stack",
+        "technologies you (use|work)",
+        "primary (skills|stack)"
+      ],
+      "answer": "FILL_ME"
+    },
+    {
+      "match": [
+        "rate your.*(dsa|data structures|algorithm)",
+        "(dsa|data structures).*(scale|rate|out of 10)"
+      ],
+      "answer": "FILL_ME"
+    },
+    {
+      "match": [
+        "payment gateway",
+        "how much experience (in|with)",
+        "experience (in|with) .* ?\\(in years\\)"
+      ],
+      "answer": "FILL_ME"
+    },
+    {
+      "match": [
+        "compensation expectations?",
+        "salary expectations?",
+        "expected (package|remuneration)"
+      ],
+      "answer": "FILL_ME"
+    },
+    {
+      "match": [
         "are you (comfortable|okay|ok|open|willing|fine|happy|ready|able|available)",
         "comfortable (working|with|relocating|commuting|in)",
         "does this align",
@@ -202,6 +312,84 @@
     },
     {
       "match": [
+        "python.*(react|django)",
+        "(react|django).*python",
+        "experience with (python|django|react)"
+      ],
+      "answer": "FILL_ME"
+    },
+    {
+      "match": [
+        "\\bnlp\\b",
+        "workflow automation",
+        "(built|integrated).*(llm|genai|ai) solution"
+      ],
+      "answer": "FILL_ME"
+    },
+    {
+      "match": [
+        "have you (ever )?(built|deployed|used|worked|developed|implemented|integrated|written|shipped|designed|led|handled|managed)",
+        "do you know",
+        "are you (proficient|skilled|experienced|familiar)",
+        "(proficien|experience|expertise|knowledge) (in|with|of) "
+      ],
+      "answer": "Yes"
+    },
+    {
+      "match": [
+        "owned? end.to.end",
+        "end.to.end.*(feature|system|production)",
+        "(feature|system).*you owned",
+        "example of a (feature|project|system)"
+      ],
+      "answer": "FILL_ME"
+    },
+    {
+      "match": [
+        "business outcome",
+        "(time saved|revenue|cost reduction)",
+        "impact(ed)? (the )?business",
+        "measurable impact"
+      ],
+      "answer": "FILL_ME"
+    },
+    {
+      "match": [
+        "first time working in (e-?commerce|retail|fintech|edtech|healthcare|saas)",
+        "worked in e-?commerce",
+        "e-?commerce experience"
+      ],
+      "answer": "Yes"
+    },
+    {
+      "match": [
+        "living in india",
+        "based in india",
+        "currently in india",
+        "reside in india",
+        "located in india"
+      ],
+      "answer": "Yes"
+    },
+    {
+      "match": [
+        "india hours",
+        "monday ?- ?friday",
+        "ist (hours|shift|timing)",
+        "indian standard time",
+        "work(ing)? (in|on|during) (india|ist)"
+      ],
+      "answer": "Yes"
+    },
+    {
+      "match": [
+        "years? of (professional|total|overall|work|software|development|relevant)( \\w+)? ?(development )?experience",
+        "how many years.*experience"
+      ],
+      "answer": "FILL_ME"
+    },
+    {
+      "match": [
         "^work from month$"
       ],
       "answer": "FILL_ME"
@@ -350,7 +538,7 @@
       "match": [
         "resume.*java",
         "java.*resume",
-        "your-resume-file-name"
+        "Parshu_Resume_JUL26_Java"
       ],
       "answer": "FILL_ME"
     },
@@ -620,6 +808,55 @@
     },
     {
       "match": [
+        "class ?10\\b",
+        "\\b10th\\b",
+        "\\bx\\b.*(percentage|marks|grade)",
+        "sslc",
+        "matric",
+        "secondary.*(percentage|marks)",
+        "high school.*(percentage|marks|grade)"
+      ],
+      "answer": "FILL_ME"
+    },
+    {
+      "match": [
+        "class ?12\\b",
+        "\\b12th\\b",
+        "\\bxii\\b.*(percentage|marks|grade)",
+        "\\bpuc\\b",
+        "intermediate.*(percentage|marks)",
+        "senior secondary.*(percentage|marks)",
+        "hsc"
+      ],
+      "answer": "FILL_ME"
+    },
+    {
+      "match": [
+        "bachelor.*(percentage|cgpa|gpa|marks|grade)",
+        "(percentage|cgpa|gpa|marks).*bachelor",
+        "undergraduate.*(percentage|cgpa|gpa)"
+      ],
+      "answer": "FILL_ME"
+    },
+    {
+      "match": [
+        "master.*(percentage|cgpa|gpa|marks|grade)",
+        "(percentage|cgpa|gpa|marks).*master",
+        "post ?graduat.*(percentage|cgpa|gpa)"
+      ],
+      "answer": "FILL_ME"
+    },
+    {
+      "match": [
+        "\\bcgpa\\b",
+        "\\bgpa\\b",
+        "percentage",
+        "grade"
+      ],
+      "answer": "FILL_ME"
+    },
+    {
+      "match": [
         "bachelor",
         "graduate degree",
         "degree in computer"
@@ -724,24 +961,8 @@
     },
     {
       "match": [
-        "bachelor.*(percentage|cgpa|gpa|marks|grade)",
-        "(percentage|cgpa|gpa|marks).*bachelor",
-        "undergraduate.*(percentage|cgpa|gpa)"
-      ],
-      "answer": "FILL_ME"
-    },
-    {
-      "match": [
         "bachelor.*(year|passing|graduat)",
         "(year|passing).*bachelor"
-      ],
-      "answer": "FILL_ME"
-    },
-    {
-      "match": [
-        "master.*(percentage|cgpa|gpa|marks|grade)",
-        "(percentage|cgpa|gpa|marks).*master",
-        "post ?graduat.*(percentage|cgpa|gpa)"
       ],
       "answer": "FILL_ME"
     },
@@ -760,15 +981,6 @@
         "university",
         "college",
         "institution"
-      ],
-      "answer": "FILL_ME"
-    },
-    {
-      "match": [
-        "\\bcgpa\\b",
-        "\\bgpa\\b",
-        "percentage",
-        "grade"
       ],
       "answer": "FILL_ME"
     },
@@ -891,6 +1103,22 @@
         "tell us about yourself",
         "summary",
         "message to (the )?hiring"
+      ],
+      "answer": "FILL_ME"
+    },
+    {
+      "match": [
+        "resume.*java",
+        "java.*resume",
+        "your-resume-file-name"
+      ],
+      "answer": "FILL_ME"
+    },
+    {
+      "match": [
+        "resume.*java",
+        "java.*resume",
+        "your-resume-file-name"
       ],
       "answer": "FILL_ME"
     }
