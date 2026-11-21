@@ -138,7 +138,9 @@ window.EAFiller = (() => {
     el.dispatchEvent(new Event('change', { bubbles: true }));
   }
 
+  const today = e => { const d = new Date(), p = n => String(n).padStart(2, '0'); return e && e.el && e.el.type === 'date' ? `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}` : `${p(d.getDate())}/${p(d.getMonth() + 1)}/${d.getFullYear()}`; };
   async function apply(e, answer) {
+    if (/@today/.test(String(answer))) answer = String(answer).replace(/@today/g, today(e));   // "Earliest start date" is always the day of applying
     // "Yes | I agree | Accept": for option controls try each alternative in order; free-text fields get the first one
     const alts = e.type === 'checkboxgroup' ? [answer] : String(answer).split(/\s*\|\s*/).filter(Boolean);
     if (!e.options && alts.length > 1) answer = alts[0];
