@@ -27,6 +27,41 @@
   "answers": [
     {
       "match": [
+        "are you (comfortable|okay|ok|open|willing|fine|happy|ready|able|available)",
+        "comfortable (working|with|relocating|commuting|in)",
+        "does this align",
+        "align with your (salary|compensation|expectation)",
+        "have you read",
+        "negotiable",
+        "(ic|individual contributor) role",
+        "startup environment"
+      ],
+      "answer": "Yes"
+    },
+    {
+      "match": [
+        "current.*(ctc|compensation|salary|package).*(lakhs?|lpa)",
+        "current.*(lakhs?|lpa).*(ctc|compensation|salary)"
+      ],
+      "answer": "FILL_ME"
+    },
+    {
+      "match": [
+        "expected.*(ctc|compensation|salary|package).*(lakhs?|lpa)",
+        "expected.*(lakhs?|lpa).*(ctc|compensation|salary)",
+        "desired.*(ctc|compensation|salary).*(lakhs?|lpa)"
+      ],
+      "answer": "FILL_ME"
+    },
+    {
+      "match": [
+        "notice period.*(in )?days",
+        "days? of notice"
+      ],
+      "answer": "FILL_ME"
+    },
+    {
+      "match": [
         "(do you have|have you (used|worked)|experience (using|with)).*(ai.powered|ai (coding|assisted)|coding (tools|assistants?)|copilot|cursor|chatgpt|claude)"
       ],
       "answer": "Yes"
