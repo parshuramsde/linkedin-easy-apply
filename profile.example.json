@@ -129,9 +129,9 @@
     },
     {
       "match": [
-        "compensation expectations?",
-        "salary expectations?",
-        "expected (package|remuneration)"
+        "^(compensation|salary) expectations?\\??$",
+        "^expected (package|remuneration|compensation)\\??$",
+        "compensation expectations? \\((inr|in|annual)"
       ],
       "answer": "FILL_ME"
     },
@@ -531,14 +531,6 @@
         "^summary$",
         "about (you|yourself)",
         "professional summary"
-      ],
-      "answer": "FILL_ME"
-    },
-    {
-      "match": [
-        "resume.*java",
-        "java.*resume",
-        "Parshu_Resume_JUL26_Java"
       ],
       "answer": "FILL_ME"
     },
